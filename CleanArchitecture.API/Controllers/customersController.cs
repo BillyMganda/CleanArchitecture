@@ -47,7 +47,7 @@ namespace CleanArchitecture.API.Controllers
         }
 
 
-        [HttpPut("EditCustomer/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> EditCustomer(Guid id, [FromBody] EditCustomerCommand command)
         {
             try
@@ -70,7 +70,7 @@ namespace CleanArchitecture.API.Controllers
 
         }
 
-        [HttpDelete("DeleteCustomer/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCustomer(Guid id)
         {
             try

@@ -4,7 +4,7 @@ using CleanArchitecture.Infrastructure.Data;
 
 namespace CleanArchitecture.Infrastructure.Repository.Command
 {
-    public class CommandCustomerRepository : CommandRepository<Customer>, ICommandCustomerRepository
+    public class CustomerCommandRepository : CommandRepository<Customer>, ICommandCustomerRepository
     {
         public CustomerCommandRepository(OrderingContext context) : base(context)
         {
