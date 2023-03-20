@@ -12,7 +12,7 @@ namespace CleanArchitecture.Domain.Entities.Base
         public DateTime ModifiedDate { get; private set; }
 
         public BaseEntity()
-        {
+        {            
             ModifiedDate = DateTime.Now;
         }
     }
