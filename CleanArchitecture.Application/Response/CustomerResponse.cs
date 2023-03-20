@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Response
+﻿namespace CleanArchitecture.Application.Response
 {
     public class CustomerResponse
     {
