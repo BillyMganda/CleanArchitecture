@@ -1,6 +1,7 @@
 ﻿namespace CleanArchitecture.Domain.Repositories.Query
 {
-    public interface IQueryRepository
+    public interface IQueryRepository<T> where T : class
     {
+        // Generic repository for all if any
     }
 }
