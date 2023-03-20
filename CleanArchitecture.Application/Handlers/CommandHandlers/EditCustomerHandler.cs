@@ -2,6 +2,7 @@
 using CleanArchitecture.Application.Mapper;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Repositories.Command;
 using CleanArchitecture.Domain.Repositories.Query;
 using MediatR;
 
@@ -9,9 +10,9 @@ namespace CleanArchitecture.Application.Handlers.CommandHandlers
 {
     public class EditCustomerHandler : IRequestHandler<EditCustomerCommand, CustomerResponse>
     {
-        private readonly ICustomerCommandRepository _customerCommandRepository;
+        private readonly ICommandCustomerRepository _customerCommandRepository;
         private readonly ICustomerQueryRepository _customerQueryRepository;
-        public EditCustomerHandler(ICustomerCommandRepository customerRepository, ICustomerQueryRepository customerQueryRepository)
+        public EditCustomerHandler(ICommandCustomerRepository customerRepository, ICustomerQueryRepository customerQueryRepository)
         {
             _customerCommandRepository = customerRepository;
             _customerQueryRepository = customerQueryRepository;

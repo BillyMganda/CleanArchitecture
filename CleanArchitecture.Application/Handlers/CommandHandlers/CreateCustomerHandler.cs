@@ -2,14 +2,15 @@
 using CleanArchitecture.Application.Mapper;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Repositories.Command;
 using MediatR;
 
 namespace CleanArchitecture.Application.Handlers.CommandHandlers
 {
     public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, CustomerResponse>
     {
-        private readonly ICustomerCommandRepository _customerCommandRepository;
-        public CreateCustomerHandler(ICustomerCommandRepository customerCommandRepository)
+        private readonly ICommandCustomerRepository _customerCommandRepository;
+        public CreateCustomerHandler(ICommandCustomerRepository customerCommandRepository)
         {
             _customerCommandRepository = customerCommandRepository;
         }
