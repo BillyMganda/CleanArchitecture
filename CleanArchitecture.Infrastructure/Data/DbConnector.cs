@@ -15,7 +15,7 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public IDbConnection CreateConnection()
         {
-            string _connectionString = _configuration.GetConnectionString("DefaultConnection")!;
+            string _connectionString = _configuration.GetConnectionString("MSSQLServerConnection")!;
             return new SqlConnection(_connectionString);
         }
     }

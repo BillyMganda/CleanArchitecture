@@ -23,7 +23,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchitecture.API", Version = "v1" });
 });
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddMediatR(typeof(CreateCustomerHandler).GetTypeInfo().Assembly);
+//builder.Services.AddMediatR(typeof(CreateCustomerHandler).GetTypeInfo().Assembly);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 builder.Services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
