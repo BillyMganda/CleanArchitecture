@@ -127,7 +127,7 @@ namespace CleanArchitecture.Test
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal("Customer information has been deleted!", okResult.Value);
+            Assert.Equal(expectedCustomerResponse, okResult.Value);
         }
     }
 }
