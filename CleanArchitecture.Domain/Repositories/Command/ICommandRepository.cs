@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CleanArchitecture.Domain.Repositories.Command
+﻿namespace CleanArchitecture.Domain.Repositories.Command
 {
     public interface ICommandRepository<T> where T : class
     {
