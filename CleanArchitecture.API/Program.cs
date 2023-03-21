@@ -34,6 +34,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
+// customers
 builder.Services.AddScoped<IRequestHandler<GetAllCustomerQuery, List<Customer>>, GetAllCustomerHandler>();
 builder.Services.AddScoped<IRequestHandler<GetCustomerByEmailQuery, Customer>, GetCustomerByEmailHandler>();
 builder.Services.AddScoped<IRequestHandler<GetCustomerByIdQuery, Customer>, GetCustomerByIdHandler>();
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IRequestHandler<CreateCustomerCommand, CustomerRespon
 builder.Services.AddScoped<IRequestHandler<DeleteCustomerCommand, string>, DeleteCustomerHandler>();
 builder.Services.AddScoped<IRequestHandler<EditCustomerCommand, CustomerResponse>, EditCustomerHandler>();
 
+// brands
 builder.Services.AddScoped<IRequestHandler<GetAllBrandQuery, List<Brand>>, GetAllBrandHandler>();
 builder.Services.AddScoped<IRequestHandler<GetBrandByIdQuery, Brand>, GetBrandByIdHandler>();
 builder.Services.AddScoped<IRequestHandler<CreateBrandCommand, BrandResponse>, CreateBrandHandler>();
@@ -50,9 +52,11 @@ builder.Services.AddScoped<IRequestHandler<EditBrandCommand, BrandResponse>, Edi
 builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
 
+// customers
 builder.Services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
 builder.Services.AddTransient<ICommandCustomerRepository, CustomerCommandRepository>();
 
+// brands
 builder.Services.AddTransient<IBrandQueryRepository, BrandQueryRepository>();
 builder.Services.AddTransient<ICommandBrandRepository, BrandCommandRepository>();
 
