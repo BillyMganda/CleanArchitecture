@@ -92,5 +92,26 @@ namespace CleanArchitecture.Test
             Assert.Equal(expectedResponse.FirstName, response.FirstName);
             Assert.Equal(expectedResponse.Email, response.Email);
         }
+
+        [Fact]
+        public async Task EditCustomer_WithValidCommand_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var command = new EditCustomerCommand { Id = id, FirstName = "John", Email = "john@example.com" };
+            var expectedCustomerResponse = new CustomerResponse { Id = id, FirstName = "John Smith", Email = "john.smith@example.com" };
+
+            _mediatorMock.Setup(x => x.Send(command, default)).ReturnsAsync(expectedCustomerResponse);
+
+            // Act
+            var result = await _customerController.EditCustomer(id, command);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var customerResponse = Assert.IsType<CustomerResponse>(okResult.Value);
+            Assert.Equal(expectedCustomerResponse.Id, customerResponse.Id);
+            Assert.Equal(expectedCustomerResponse.FirstName, customerResponse.FirstName);
+            Assert.Equal(expectedCustomerResponse.Email, customerResponse.Email);
+        }
     }
 }

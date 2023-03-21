@@ -66,8 +66,6 @@ namespace CleanArchitecture.API.Controllers
             {
                 return BadRequest(exp.Message);
             }
-
-
         }
 
         [HttpDelete("{id}")]
@@ -84,6 +82,5 @@ namespace CleanArchitecture.API.Controllers
                 return BadRequest(exp.Message);
             }
         }
-
     }
 }
