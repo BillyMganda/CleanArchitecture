@@ -1,4 +1,9 @@
+using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Handlers.CommandHandlers;
+using CleanArchitecture.Application.Handlers.QueryHandlers;
+using CleanArchitecture.Application.Queries;
+using CleanArchitecture.Application.Response;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Repositories.Command;
 using CleanArchitecture.Domain.Repositories.Query;
 using CleanArchitecture.Infrastructure.Data;
@@ -23,8 +28,13 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchitecture.API", Version = "v1" });
 });
 builder.Services.AddAutoMapper(typeof(Program));
-//builder.Services.AddMediatR(typeof(CreateCustomerHandler).GetTypeInfo().Assembly);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddScoped<IRequestHandler<GetAllCustomerQuery, List<Customer>>, GetAllCustomerHandler>();
+builder.Services.AddScoped<IRequestHandler<GetCustomerByEmailQuery, Customer>, GetCustomerByEmailHandler>();
+builder.Services.AddScoped<IRequestHandler<GetCustomerByIdQuery, Customer>, GetCustomerByIdHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateCustomerCommand, CustomerResponse>, CreateCustomerHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteCustomerCommand, string>, DeleteCustomerHandler>();
+builder.Services.AddScoped<IRequestHandler<EditCustomerCommand, CustomerResponse>, EditCustomerHandler>();
 builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 builder.Services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
