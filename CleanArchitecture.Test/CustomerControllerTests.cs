@@ -113,5 +113,21 @@ namespace CleanArchitecture.Test
             Assert.Equal(expectedCustomerResponse.FirstName, customerResponse.FirstName);
             Assert.Equal(expectedCustomerResponse.Email, customerResponse.Email);
         }
+
+        [Fact]
+        public async Task DeleteCustomer_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var expectedCustomerResponse = "Customer information has been deleted!";
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteCustomerCommand>(), default)).ReturnsAsync(expectedCustomerResponse);
+
+            // Act
+            var result = await _customerController.DeleteCustomer(id);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Customer information has been deleted!", okResult.Value);
+        }
     }
 }
