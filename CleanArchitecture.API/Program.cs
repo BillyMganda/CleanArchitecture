@@ -61,7 +61,6 @@ builder.Services.AddTransient<IBrandQueryRepository, BrandQueryRepository>();
 builder.Services.AddTransient<ICommandBrandRepository, BrandCommandRepository>();
 
 
-
 var app = builder.Build();
 
 app.UseSwagger();

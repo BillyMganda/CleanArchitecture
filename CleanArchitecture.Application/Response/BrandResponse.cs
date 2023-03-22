@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public string BrandName { get; set; } = string.Empty;
-        public DateOnly CreatedDate { get; set; }
-        public DateOnly ModifiedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }
