@@ -1,8 +1,12 @@
 ﻿using CleanArchitecture.API.Controllers;
+using CleanArchitecture.Application.Commands;
+using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Queries;
 using CleanArchitecture.Application.Queries.Categories;
+using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace CleanArchitecture.Test
@@ -54,6 +58,24 @@ namespace CleanArchitecture.Test
             Assert.IsType<Category>(result);
             Assert.Equal(expectedCategory.Id, result.Id);
             Assert.Equal(expectedCategory.CategoryName, result.CategoryName);
+        }
+
+        [Fact]
+        public async Task CreateCategory_WithValidCommand_ReturnsCategoryResponse()
+        {
+            // Arrange
+            var command = new CreateCategoryCommand { CategoryName = "Duis ac"};
+            var expectedResponse = new CategoryResponse { Id = Guid.NewGuid(), CategoryName = command.CategoryName};
+            _mediatorMock.Setup(m => m.Send(command, default)).ReturnsAsync(expectedResponse);
+
+            // Act
+            var result = await _categoriesController.CreateCategory(command);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var response = Assert.IsType<CategoryResponse>(okResult.Value);
+            Assert.Equal(expectedResponse.Id, response.Id);
+            Assert.Equal(expectedResponse.CategoryName, response.CategoryName);            
         }
     }
 }
