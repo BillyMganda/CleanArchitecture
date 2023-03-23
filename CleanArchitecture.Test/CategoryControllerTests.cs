@@ -99,19 +99,19 @@ namespace CleanArchitecture.Test
         }
 
         [Fact]
-        public async Task DeleteCustomer_ReturnsOkResult()
+        public async Task DeleteCategory_ReturnsOkResult()
         {
             // Arrange
             var id = Guid.NewGuid();
-            var expectedCustomerResponse = "Customer information has been deleted!";
-            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteCustomerCommand>(), default)).ReturnsAsync(expectedCustomerResponse);
+            var expectedCategoryResponse = "Category information has been deleted!";
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteCategoryCommand>(), default)).ReturnsAsync(expectedCategoryResponse);
 
             // Act
-            var result = await _customerController.DeleteCustomer(id);
+            var result = await _categoriesController.DeleteCategory(id);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal(expectedCustomerResponse, okResult.Value);
+            Assert.Equal(expectedCategoryResponse, okResult.Value);
         }
     }
 }
