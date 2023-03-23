@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Brands;
+using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 
@@ -19,6 +20,11 @@ namespace CleanArchitecture.Application.Mapper
             CreateMap<Brand, BrandResponse>().ReverseMap();
             CreateMap<Brand, CreateBrandCommand>().ReverseMap();
             CreateMap<Brand, EditBrandCommand>().ReverseMap();
+
+            // Category Mapping
+            CreateMap<Category, CategoryResponse>().ReverseMap();
+            CreateMap<Category, CreateCategoryCommand>().ReverseMap();
+            CreateMap<Category, EditCategoryCommand>().ReverseMap();
         }
     }
 }
