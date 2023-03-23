@@ -1,11 +1,15 @@
 using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Brands;
+using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Handlers.CommandHandlers;
 using CleanArchitecture.Application.Handlers.CommandHandlers.Brands;
+using CleanArchitecture.Application.Handlers.CommandHandlers.Categories;
 using CleanArchitecture.Application.Handlers.QueryHandlers;
 using CleanArchitecture.Application.Handlers.QueryHandlers.Brands;
+using CleanArchitecture.Application.Handlers.QueryHandlers.Categories;
 using CleanArchitecture.Application.Queries;
 using CleanArchitecture.Application.Queries.Brands;
+using CleanArchitecture.Application.Queries.Categories;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Repositories.Command;
@@ -49,6 +53,13 @@ builder.Services.AddScoped<IRequestHandler<CreateBrandCommand, BrandResponse>, C
 builder.Services.AddScoped<IRequestHandler<DeleteBrandCommand, string>, DeleteBrandHandler>();
 builder.Services.AddScoped<IRequestHandler<EditBrandCommand, BrandResponse>, EditBrandHandler>();
 
+// categories
+builder.Services.AddScoped<IRequestHandler<GetAllCategoryQuery, List<Category>>, GetAllCategoryHandler>();
+builder.Services.AddScoped<IRequestHandler<GetCategoryByIdQuery, Category>, GetCategoryByIdHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateCategoryCommand, CategoryResponse>, CreateCategoryHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteCategoryCommand, string>, DeleteCategoryHandler>();
+builder.Services.AddScoped<IRequestHandler<EditCategoryCommand, CategoryResponse>, EditCategoryHandler>();
+
 builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
 
@@ -59,6 +70,10 @@ builder.Services.AddTransient<ICommandCustomerRepository, CustomerCommandReposit
 // brands
 builder.Services.AddTransient<IBrandQueryRepository, BrandQueryRepository>();
 builder.Services.AddTransient<ICommandBrandRepository, BrandCommandRepository>();
+
+// categories
+builder.Services.AddTransient<ICategoryQueryRepository, CategoryQueryRepository>();
+builder.Services.AddTransient<ICommandCategoryRepository, CategoryCommandRepository>();
 
 
 var app = builder.Build();
