@@ -18,6 +18,8 @@ namespace CleanArchitecture.Test
             _mediatorMock = new Mock<IMediator>();
             _customerController = new customersController(_mediatorMock.Object);
         }
+
+
         [Fact]
         public async Task Get_ReturnsListOfCustomers()
         {
