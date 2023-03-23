@@ -77,5 +77,41 @@ namespace CleanArchitecture.Test
             Assert.Equal(expectedResponse.Id, response.Id);
             Assert.Equal(expectedResponse.CategoryName, response.CategoryName);            
         }
+
+        [Fact]
+        public async Task EditCategory_WithValidCommand_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var command = new EditCategoryCommand { Id = id, CategoryName = "Duis ac"};
+            var expectedCategoryResponse = new CategoryResponse { Id = id, CategoryName = "John Smith"};
+
+            _mediatorMock.Setup(x => x.Send(command, default)).ReturnsAsync(expectedCategoryResponse);
+
+            // Act
+            var result = await _categoriesController.EditCategory(id, command);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var categoryResponse = Assert.IsType<CategoryResponse>(okResult.Value);
+            Assert.Equal(categoryResponse.Id, categoryResponse.Id);
+            Assert.Equal(categoryResponse.CategoryName, categoryResponse.CategoryName);            
+        }
+
+        [Fact]
+        public async Task DeleteCustomer_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var expectedCustomerResponse = "Customer information has been deleted!";
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteCustomerCommand>(), default)).ReturnsAsync(expectedCustomerResponse);
+
+            // Act
+            var result = await _customerController.DeleteCustomer(id);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(expectedCustomerResponse, okResult.Value);
+        }
     }
 }
