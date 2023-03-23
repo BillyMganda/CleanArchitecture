@@ -1,17 +1,10 @@
-﻿using CleanArchitecture.Application.Commands.Brands;
-using CleanArchitecture.Application.Commands.Categories;
-using CleanArchitecture.Application.Mapper.Brands;
+﻿using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Mapper.Categories;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Repositories.Command;
 using CleanArchitecture.Domain.Repositories.Query;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Handlers.CommandHandlers.Categories
 {
