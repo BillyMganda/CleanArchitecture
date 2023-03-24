@@ -1,8 +1,12 @@
 ﻿using CleanArchitecture.API.Controllers;
+using CleanArchitecture.Application.Commands.Brands;
+using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Queries.Brands;
 using CleanArchitecture.Application.Queries.Categories;
+using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace CleanArchitecture.Test
@@ -54,6 +58,24 @@ namespace CleanArchitecture.Test
             Assert.IsType<Brand>(result);
             Assert.Equal(expectedResults.Id, result.Id);
             Assert.Equal(expectedResults.BrandName, result.BrandName);
+        }
+
+        [Fact]
+        public async Task CreateBrand_WithValidCommand_ReturnsBrandResponse()
+        {
+            // Arrange
+            var command = new CreateBrandCommand { BrandName = "Test Brand" };
+            var expectedResponse = new BrandResponse { Id = Guid.NewGuid(), BrandName = command.BrandName };
+            _mediatorMock.Setup(m => m.Send(command, default)).ReturnsAsync(expectedResponse);
+
+            // Act
+            var result = await _brandsController.CreateBrand(command);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var response = Assert.IsType<BrandResponse>(okResult.Value);
+            Assert.Equal(expectedResponse.Id, response.Id);
+            Assert.Equal(expectedResponse.BrandName, response.BrandName);
         }
     }
 }
