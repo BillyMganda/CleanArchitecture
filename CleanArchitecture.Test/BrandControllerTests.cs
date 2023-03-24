@@ -77,5 +77,25 @@ namespace CleanArchitecture.Test
             Assert.Equal(expectedResponse.Id, response.Id);
             Assert.Equal(expectedResponse.BrandName, response.BrandName);
         }
+
+        [Fact]
+        public async Task EditBrand_WithValidCommand_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var command = new EditBrandCommand { Id = id, BrandName = "Test Brand" };
+            var expectedResponse = new BrandResponse { Id = id, BrandName = "John Smith" };
+
+            _mediatorMock.Setup(x => x.Send(command, default)).ReturnsAsync(expectedResponse);
+
+            // Act
+            var result = await _brandsController.EditBrand(id, command);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var response = Assert.IsType<BrandResponse > (okResult.Value);
+            Assert.Equal(response.Id, expectedResponse.Id);
+            Assert.Equal(response.BrandName, expectedResponse.BrandName);
+        }
     }
 }
