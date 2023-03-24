@@ -6,6 +6,7 @@ namespace CleanArchitecture.Application.Commands.Stores
 {
     public class EditStoreCommand : IRequest<StoreResponse>
     {
+        public Guid Id { get; set; }
         public string StoreName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         [EmailAddress]
