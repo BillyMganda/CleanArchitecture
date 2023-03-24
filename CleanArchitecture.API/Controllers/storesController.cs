@@ -22,5 +22,12 @@ namespace CleanArchitecture.API.Controllers
         {
             return await _mediator.Send(new GetAllStoreQuery());
         }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<Store> Get(Guid id)
+        {
+            return await _mediator.Send(new GetStoreByIdQuery(id));
+        }
     }
 }
