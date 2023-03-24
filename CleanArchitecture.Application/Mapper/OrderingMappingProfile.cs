@@ -2,6 +2,7 @@
 using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Brands;
 using CleanArchitecture.Application.Commands.Categories;
+using CleanArchitecture.Application.Commands.Stores;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 
@@ -25,6 +26,11 @@ namespace CleanArchitecture.Application.Mapper
             CreateMap<Category, CategoryResponse>().ReverseMap();
             CreateMap<Category, CreateCategoryCommand>().ReverseMap();
             CreateMap<Category, EditCategoryCommand>().ReverseMap();
+
+            // Store Mapping
+            CreateMap<Store, StoreResponse>().ReverseMap();
+            CreateMap<Store, CreateStoreCommand>().ReverseMap();
+            CreateMap<Store, EditStoreCommand>().ReverseMap();
         }
     }
 }
