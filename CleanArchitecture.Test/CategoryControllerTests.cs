@@ -1,7 +1,5 @@
 ﻿using CleanArchitecture.API.Controllers;
-using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Categories;
-using CleanArchitecture.Application.Queries;
 using CleanArchitecture.Application.Queries.Categories;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
