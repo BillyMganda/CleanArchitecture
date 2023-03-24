@@ -1,15 +1,19 @@
 using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Brands;
 using CleanArchitecture.Application.Commands.Categories;
+using CleanArchitecture.Application.Commands.Stores;
 using CleanArchitecture.Application.Handlers.CommandHandlers;
 using CleanArchitecture.Application.Handlers.CommandHandlers.Brands;
 using CleanArchitecture.Application.Handlers.CommandHandlers.Categories;
+using CleanArchitecture.Application.Handlers.CommandHandlers.Stores;
 using CleanArchitecture.Application.Handlers.QueryHandlers;
 using CleanArchitecture.Application.Handlers.QueryHandlers.Brands;
 using CleanArchitecture.Application.Handlers.QueryHandlers.Categories;
+using CleanArchitecture.Application.Handlers.QueryHandlers.Stores;
 using CleanArchitecture.Application.Queries;
 using CleanArchitecture.Application.Queries.Brands;
 using CleanArchitecture.Application.Queries.Categories;
+using CleanArchitecture.Application.Queries.Stores;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Repositories.Command;
@@ -38,6 +42,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
+builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
+builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
+
 // customers
 builder.Services.AddScoped<IRequestHandler<GetAllCustomerQuery, List<Customer>>, GetAllCustomerHandler>();
 builder.Services.AddScoped<IRequestHandler<GetCustomerByEmailQuery, Customer>, GetCustomerByEmailHandler>();
@@ -60,8 +67,12 @@ builder.Services.AddScoped<IRequestHandler<CreateCategoryCommand, CategoryRespon
 builder.Services.AddScoped<IRequestHandler<DeleteCategoryCommand, string>, DeleteCategoryHandler>();
 builder.Services.AddScoped<IRequestHandler<EditCategoryCommand, CategoryResponse>, EditCategoryHandler>();
 
-builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
-builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
+// stores
+builder.Services.AddScoped<IRequestHandler<GetAllStoreQuery, List<Store>>, GetAllStoreHandler>();
+builder.Services.AddScoped<IRequestHandler<GetStoreByIdQuery, Store>, GetStoreByIdHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateStoreCommand, StoreResponse>, CreateStoreHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteStoreCommand, string>, DeleteStoreHandler>();
+builder.Services.AddScoped<IRequestHandler<EditStoreCommand, StoreResponse>, EditStoreHandler>();
 
 // customers
 builder.Services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
@@ -74,6 +85,10 @@ builder.Services.AddTransient<ICommandBrandRepository, BrandCommandRepository>()
 // categories
 builder.Services.AddTransient<ICategoryQueryRepository, CategoryQueryRepository>();
 builder.Services.AddTransient<ICommandCategoryRepository, CategoryCommandRepository>();
+
+// store
+builder.Services.AddTransient<IStoreQueryRepository, StoreQueryRepository>();
+builder.Services.AddTransient<ICommandStoreRepository, StoreCommandRepository>();
 
 
 var app = builder.Build();
