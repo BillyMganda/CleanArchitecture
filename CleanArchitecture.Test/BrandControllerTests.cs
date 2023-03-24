@@ -97,5 +97,21 @@ namespace CleanArchitecture.Test
             Assert.Equal(response.Id, expectedResponse.Id);
             Assert.Equal(response.BrandName, expectedResponse.BrandName);
         }
+
+        [Fact]
+        public async Task DeleteBrand_ReturnsOkResult()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var expectedResponse = "Brand information has been deleted!";
+            _mediatorMock.Setup(x => x.Send(It.IsAny<DeleteBrandCommand>(), default)).ReturnsAsync(expectedResponse);
+
+            // Act
+            var result = await _brandsController.DeleteBrand(id);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(expectedResponse, okResult.Value);
+        }
     }
 }
