@@ -40,5 +40,26 @@ namespace CleanArchitecture.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> EditBrand(Guid id, [FromBody] EditStoreCommand command)
+        {
+            try
+            {
+                if (command.Id == id)
+                {
+                    var result = await _mediator.Send(command);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
+        }
     }
 }
