@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Domain.Repositories.Command
 {
-    public interface ICommandStoreRepository : ICommandRepository<Brand>
+    public interface ICommandStoreRepository : ICommandRepository<Store>
     {
     }
 }
