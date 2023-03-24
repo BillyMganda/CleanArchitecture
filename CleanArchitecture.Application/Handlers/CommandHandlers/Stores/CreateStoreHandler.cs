@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Application.Commands.Categories;
-using CleanArchitecture.Application.Commands.Stores;
-using CleanArchitecture.Application.Mapper.Categories;
+﻿using CleanArchitecture.Application.Commands.Stores;
+using CleanArchitecture.Application.Mapper.Stores;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Repositories.Command;
