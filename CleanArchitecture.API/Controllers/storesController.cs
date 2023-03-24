@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using CleanArchitecture.Application.Queries.Brands;
+using CleanArchitecture.Application.Queries.Stores;
+using CleanArchitecture.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.API.Controllers
@@ -11,6 +14,13 @@ namespace CleanArchitecture.API.Controllers
         public storesController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<List<Store>> Get()
+        {
+            return await _mediator.Send(new GetAllStoreQuery());
         }
     }
 }
