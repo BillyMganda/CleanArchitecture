@@ -42,7 +42,7 @@ namespace CleanArchitecture.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> EditBrand(Guid id, [FromBody] EditStoreCommand command)
+        public async Task<ActionResult> EditStore(Guid id, [FromBody] EditStoreCommand command)
         {
             try
             {
@@ -55,6 +55,21 @@ namespace CleanArchitecture.API.Controllers
                 {
                     return BadRequest();
                 }
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteStore(Guid id)
+        {
+            try
+            {
+                string result = string.Empty;
+                result = await _mediator.Send(new DeleteStoreCommand(id));
+                return Ok(result);
             }
             catch (Exception exp)
             {
