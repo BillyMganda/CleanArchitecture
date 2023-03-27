@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.DTOs.Users;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Repositories.Command;
 using CleanArchitecture.Infrastructure.Data;
 using Konscious.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace CleanArchitecture.Infrastructure.Repository.Command
 {
-    public class UserCommandRepository
+    public class UserCommandRepository : ICommandRepository<User>
     {
         protected readonly OrderingContext _context;
         public UserCommandRepository(OrderingContext context)
@@ -137,6 +138,26 @@ namespace CleanArchitecture.Infrastructure.Repository.Command
                 return true;
             }
             return false;
+        }
+
+        public Task<User> AddAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(User entity)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == entity.Id);
+            if (user is not null)
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();                
+            }
         }
     }
 }
