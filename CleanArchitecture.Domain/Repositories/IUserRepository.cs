@@ -5,10 +5,10 @@ namespace CleanArchitecture.Domain.Repositories
 {
     public interface IUserRepository
     {
-        Task<GetUserDto> GetByIdAsync(Guid id);
-        Task<GetUserDto> GetByEmailAsync(string email);
-        Task AddAsync(CreateUserDto user);
-        Task UpdateAsync(ModifyUserDto user);
+        Task<User> GetByIdAsync(Guid id);
+        Task<User> GetByEmailAsync(string email);
+        Task AddAsync(User user);
+        Task UpdateAsync(User user);
         Task DeleteAsync(Guid id);
     }
 }
