@@ -131,13 +131,15 @@ namespace CleanArchitecture.Infrastructure.Repository.Command
         public async Task<bool> DeleteUserAsync(Guid Id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
-            if (user is not null)
+            if (user == null)
             {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-                return true;
+                return false;
             }
-            return false;
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<List<GetUserDto>> GetAllUsersAsync()
