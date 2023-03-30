@@ -140,6 +140,23 @@ namespace CleanArchitecture.Infrastructure.Repository.Command
             return false;
         }
 
+        public async Task<GetUserDto> GetAllUsersAsync()
+        {
+
+        }
+
+        public async Task<GetUserDto> GetUserByIdAsync(Guid Id)
+        {
+
+        }
+
+
+
+
+
+
+
+
         public Task<User> AddAsync(User entity)
         {
             throw new NotImplementedException();
