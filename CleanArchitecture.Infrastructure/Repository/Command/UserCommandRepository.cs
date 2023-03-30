@@ -140,18 +140,20 @@ namespace CleanArchitecture.Infrastructure.Repository.Command
             return false;
         }
 
-        public List<GetUserDto> GetAllUsersAsync()
+        public async Task<List<GetUserDto>> GetAllUsersAsync()
         {
-            var usersDto = _context.Users.Select(u => new GetUserDto
-            {
-                Id = u.Id,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email,
-                ModifiedDate = u.ModifiedDate,
-            }).ToList();
+            var userDtos = await _context.Users
+                .Select(u => new GetUserDto
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    ModifiedDate = u.ModifiedDate
+                })
+                .ToListAsync();
 
-            return usersDto;
+            return userDtos;
         }
 
         public async Task<GetUserDto> GetUserByIdAsync(Guid Id)
