@@ -156,7 +156,19 @@ namespace CleanArchitecture.Infrastructure.Repository.Command
 
         public async Task<GetUserDto> GetUserByIdAsync(Guid Id)
         {
+            var userDto = await _context.Users
+                .Where(u => u.Id == Id)
+                .Select(u => new GetUserDto
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    ModifiedDate = u.ModifiedDate
+                })
+                .FirstOrDefaultAsync();
 
+            return userDto!;
         }
 
 
