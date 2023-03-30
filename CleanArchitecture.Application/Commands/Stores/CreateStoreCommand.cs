@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Response;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CleanArchitecture.Application.Commands.Stores
 {
@@ -13,8 +14,8 @@ namespace CleanArchitecture.Application.Commands.Stores
         public string Street { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
-        public string ZipCode { get; set; } = string.Empty;
-        public DateTime CreatedDate { get; set; }
+        public string ZipCode { get; set; } = string.Empty;        
+        public DateTime CreatedDate { get; set; }        
         public DateTime ModifiedDate { get; set; }
         public CreateStoreCommand()
         {

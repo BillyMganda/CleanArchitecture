@@ -14,5 +14,6 @@ namespace CleanArchitecture.Infrastructure.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
