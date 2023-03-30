@@ -3,7 +3,6 @@ using CleanArchitecture.Application.Commands;
 using CleanArchitecture.Application.Commands.Brands;
 using CleanArchitecture.Application.Commands.Categories;
 using CleanArchitecture.Application.Commands.Stores;
-using CleanArchitecture.Application.Commands.Users;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.DTOs.Users;
 using CleanArchitecture.Domain.Entities;
@@ -35,9 +34,9 @@ namespace CleanArchitecture.Application.Mapper
             CreateMap<Store, EditStoreCommand>().ReverseMap();
 
             // Store Mapping
-            CreateMap<User, GetUserDto>().ReverseMap();
-            CreateMap<User, CreateUserCommand>().ReverseMap();
-            CreateMap<User, EditUserCommand>().ReverseMap();
+            //CreateMap<User, GetUserDto>().ReverseMap();
+            //CreateMap<User, CreateUserCommand>().ReverseMap();
+            //CreateMap<User, EditUserCommand>().ReverseMap();
         }
     }
 }
