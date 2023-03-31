@@ -25,6 +25,7 @@ namespace CleanArchitecture.Application.Handlers.CommandHandlers
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.Email = request.Email;
+            user.ModifiedDate = DateTime.UtcNow;
 
             await _userRepository.UpdateAsync(user);
 

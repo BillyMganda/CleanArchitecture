@@ -22,7 +22,9 @@ namespace CleanArchitecture.Application.Handlers.CommandHandlers
                 Id = Guid.NewGuid(),
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email
+                Email = request.Email,
+                CreatedDate = DateTime.UtcNow,
+                ModifiedDate = DateTime.UtcNow
             };
 
             // Hash the password
