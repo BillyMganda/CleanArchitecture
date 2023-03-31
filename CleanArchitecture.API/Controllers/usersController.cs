@@ -90,5 +90,14 @@ namespace CleanArchitecture.API.Controllers
 
             return Ok(updatedDto);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteUserCommand { Id = id };
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
     }
 }
