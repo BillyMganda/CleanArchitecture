@@ -16,9 +16,11 @@ using CleanArchitecture.Application.Queries.Categories;
 using CleanArchitecture.Application.Queries.Stores;
 using CleanArchitecture.Application.Response;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Repositories;
 using CleanArchitecture.Domain.Repositories.Command;
 using CleanArchitecture.Domain.Repositories.Query;
 using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.Repository;
 using CleanArchitecture.Infrastructure.Repository.Command;
 using CleanArchitecture.Infrastructure.Repository.Query;
 using CleanArchitecture.Infrastructure.Repository.Query.Base;
@@ -40,7 +42,9 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchitecture.API", Version = "v1" });
 });
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<IMediator, Mediator>();
 
 builder.Services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 builder.Services.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
@@ -52,6 +56,7 @@ builder.Services.AddScoped<IRequestHandler<GetCustomerByIdQuery, Customer>, GetC
 builder.Services.AddScoped<IRequestHandler<CreateCustomerCommand, CustomerResponse>, CreateCustomerHandler>();
 builder.Services.AddScoped<IRequestHandler<DeleteCustomerCommand, string>, DeleteCustomerHandler>();
 builder.Services.AddScoped<IRequestHandler<EditCustomerCommand, CustomerResponse>, EditCustomerHandler>();
+builder.Services.AddMediatR(typeof(GetCustomerByEmailHandler).GetTypeInfo().Assembly);
 
 // brands
 builder.Services.AddScoped<IRequestHandler<GetAllBrandQuery, List<Brand>>, GetAllBrandHandler>();
@@ -91,11 +96,23 @@ builder.Services.AddTransient<IStoreQueryRepository, StoreQueryRepository>();
 builder.Services.AddTransient<ICommandStoreRepository, StoreCommandRepository>();
 
 
+// user
+builder.Services.AddScoped<IMediator, Mediator>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRequestHandler<GetUserByIdQuery, User>, GetUserQueryHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler>();
+builder.Services.AddScoped<IRequestHandler<ModifyUserCommand, User>, ModifyUserCommandHandler>();
+
+
+
+
+
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchitecture.API v1"));
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
