@@ -65,5 +65,30 @@ namespace CleanArchitecture.API.Controllers
 
             return CreatedAtAction(nameof(Get), new { id = result.Id }, createdDto);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] ModifyUserDto dto)
+        {
+            var command = new ModifyUserCommand
+            {
+                Id = id,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email
+            };
+
+            var result = await _mediator.Send(command);
+
+            var updatedDto = new GetUserDto
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                Email = result.Email,
+                ModifiedDate = result.ModifiedDate
+            };
+
+            return Ok(updatedDto);
+        }
     }
 }
