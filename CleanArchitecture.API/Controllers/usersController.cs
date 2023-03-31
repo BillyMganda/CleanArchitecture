@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using CleanArchitecture.Application.Queries;
+using CleanArchitecture.Application.Commands;
 
 namespace CleanArchitecture.API.Controllers
 {
@@ -37,6 +38,32 @@ namespace CleanArchitecture.API.Controllers
             };
 
             return Ok(dto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateUserDto dto)
+        {
+            var command = new CreateUserCommand
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Password = dto.Password,
+                ConfirmPassword = dto.ConfirmPassword
+            };
+
+            var result = await _mediator.Send(command);
+
+            var createdDto = new GetUserDto
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                Email = result.Email,
+                ModifiedDate = result.ModifiedDate
+            };
+
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, createdDto);
         }
     }
 }
