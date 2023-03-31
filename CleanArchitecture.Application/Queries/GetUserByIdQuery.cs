@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CleanArchitecture.Application.Queries
 {
-    internal class GetUserByIdQuery : IRequest<User>
+    public class GetUserByIdQuery : IRequest<User>
     {
         public Guid Id { get; set; }
     }
